@@ -16,6 +16,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     private static int gridSize = 20;
     private static int scaleSizeX;
     private static int scaleSizeY;
+    private int score = 0;
     private Timer gameLoop;
     private Food apple;
     private static ArrayList<Segments> snakeSegments;
@@ -82,6 +83,10 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             g.fillRect(tail.getSnakeX(), tail.getSnakeY(), tail.getSnakeWidth(), tail.getSnakeHeight());
         }
 
+        // Score Board
+        g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+        g.setColor(Color.GREEN);
+        g.drawString("Score = " + score, 50, 20);
     }
 
     // Collisions
@@ -92,8 +97,25 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
                 && head.getSnakeY() / gridSize == apple.getFoodY() / gridSize) {
             snakeSegments.add(new Segments(apple.getFoodX() / gridSize, apple.getFoodY() / gridSize));
             apple.foodEaten();
+            score++;
         }
 
+    }
+
+    public void mapLoop() {
+        Segments head = snakeSegments.get(0);
+        if (head.getSnakeX() == 0) {
+            head.setSnakeX(panelWidth);
+        } else if (head.getSnakeX() == panelWidth) {
+            head.setSnakeX(0);
+            ;
+        }
+
+        if (head.getSnakeY() == 0) {
+            head.setSnakeY(panelHeight);
+        } else if (head.getSnakeY() == panelHeight) {
+            head.setSnakeY(0);
+        }
     }
 
     // Getter and Setters
@@ -133,6 +155,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             }
         }
         checkFoodColisions();
+        mapLoop();
     }
 
     @Override

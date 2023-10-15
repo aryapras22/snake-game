@@ -6,6 +6,14 @@ public class Segments {
     private int segmentsHeight = 1;
     private int snakeX;
     private int snakeY;
+    public void setSnakeX(int snakeX) {
+        this.snakeX = snakeX;
+    }
+
+    public void setSnakeY(int snakeY) {
+        this.snakeY = snakeY;
+    }
+
     private int speedX = 1;
     private int speedY = 0;
 

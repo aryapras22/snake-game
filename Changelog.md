@@ -1,6 +1,6 @@
 // Bugs
 
-1. [ ] boundaries from grid >> actual screen size
+1. [X] boundaries from grid >> actual screen size
 2. [ ] first food eaten didn't add snake length
 
 // Things that really weird and should be changed
@@ -13,7 +13,7 @@
 
 // Future Features
 
-* [ ] Score board
+* [X] Score board
   * [ ] high score board
 * [ ] colission between head and body
 * [ ] screen loop ( waiting boundaries to be fixed)
