@@ -19,12 +19,12 @@ public class Food {
     }
 
     public void setFoodX() {
-        int random = (int) (Math.random() * (SnakeGame.getPanelWidth() / grid)) + 0;
+        int random = (int) (Math.random() * ((SnakeGame.getPanelWidth() / grid) - 2)) + 0;
         this.foodX = random * grid;
     }
 
     public void setFoodY() {
-        int random = (int) (Math.random() * (SnakeGame.getPanelHeight() / grid)) + 0;
+        int random = (int) (Math.random() * ((SnakeGame.getPanelHeight() / grid) - 2)) + 0;
         this.foodY = random * grid;
     }
 

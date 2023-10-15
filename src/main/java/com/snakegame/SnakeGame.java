@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     private static int panelHeight, panelWidth;
     private static int gridSize = 20;
+    private static int scaleSizeX;
+    private static int scaleSizeY;
     private Timer gameLoop;
     private Food apple;
     private static ArrayList<Segments> snakeSegments;
@@ -54,12 +56,15 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
     public void draw(Graphics g) {
         // Grid
-        // for (int i = 0; i <= panelWidth / gridSize; i++) {
-        // g.drawLine(i * gridSize, 0, i * gridSize, panelHeight);
-        // }
-        // for (int i = 0; i <= panelHeight / gridSize; i++) {
-        // g.drawLine(0, i * gridSize, panelWidth, i * gridSize);
-        // }
+        // Veritcal Lines
+        for (int i = 0; i <= (panelWidth / gridSize) - 2; i++) {
+            g.drawLine(i * gridSize, 0, i * gridSize, panelHeight - (2 * gridSize));
+        }
+
+        // Horizontal Lines
+        for (int i = 0; i <= (panelHeight / gridSize) - 2; i++) {
+            g.drawLine(0, i * gridSize, panelWidth - (gridSize * 1), i * gridSize);
+        }
 
         // Food
         g.setColor(Color.RED);
@@ -76,12 +81,6 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             g.setColor(Color.YELLOW);
             g.fillRect(tail.getSnakeX(), tail.getSnakeY(), tail.getSnakeWidth(), tail.getSnakeHeight());
         }
-
-        // for (Segments i : snakeSegments) {
-        // g.setColor(Color.YELLOW);
-        // g.fillRect(i.getSnakeX(), i.getSnakeY(), i.getSnakeWidth(),
-        // i.getSnakeHeight());
-        // }
 
     }
 
@@ -108,6 +107,14 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
     public static int getPanelWidth() {
         return panelWidth;
+    }
+
+    public static int getScaleSizeX() {
+        return scaleSizeX;
+    }
+
+    public static int getScaleSizeY() {
+        return scaleSizeY;
     }
 
     // Action Listener

@@ -10,7 +10,6 @@
 // Alternate method
 
 * [ ] created overloading constructor for adding previous tail to new tail instances
-* [ ]
 
 // Future Features
 
