@@ -6,6 +6,9 @@ public class Segments {
     private int segmentsHeight = 1;
     private int snakeX;
     private int snakeY;
+    private double speedX = 1;
+    private double speedY = 0;
+
     public void setSnakeX(int snakeX) {
         this.snakeX = snakeX;
     }
@@ -13,9 +16,6 @@ public class Segments {
     public void setSnakeY(int snakeY) {
         this.snakeY = snakeY;
     }
-
-    private int speedX = 1;
-    private int speedY = 0;
 
     Segments(int x, int y) {
         this.snakeX = x * grid;
@@ -43,12 +43,12 @@ public class Segments {
         this.snakeY += speedY * grid;
     }
 
-    public void setSpeedX(int speedX) {
-        this.speedX = speedX;
+    public void setSpeedX(double snakeSpeed) {
+        this.speedX = snakeSpeed;
     }
 
-    public void setSpeedY(int speedY) {
-        this.speedY = speedY;
+    public void setSpeedY(double snakeSpeed) {
+        this.speedY = snakeSpeed;
     }
 
     public void getPreviousSegment(Segments other) {

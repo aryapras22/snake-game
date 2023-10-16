@@ -17,6 +17,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     private static int scaleSizeX;
     private static int scaleSizeY;
     private int score = 0;
+    private double snakeSpeed = 0.5;
     private Timer gameLoop;
     private Food apple;
     private static ArrayList<Segments> snakeSegments;
@@ -43,9 +44,13 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         apple = new Food();
 
         // GameLoop
-        gameLoop = new Timer(100, this);
+        gameLoop = new Timer(10, this);
         gameLoop.start();
         addKeyListener(this);
+
+    }
+
+    public void function() {
 
     }
 
@@ -164,12 +169,12 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
         if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
             for (Segments i : snakeSegments) {
-                i.setSpeedX(-1);
+                i.setSpeedX(-snakeSpeed);
                 i.setSpeedY(0);
             }
         } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
             for (Segments i : snakeSegments) {
-                i.setSpeedX(1);
+                i.setSpeedX(snakeSpeed);
                 i.setSpeedY(0);
             }
         }
@@ -177,13 +182,17 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
             for (Segments i : snakeSegments) {
                 i.setSpeedX(0);
-                i.setSpeedY(-1);
+                i.setSpeedY(-snakeSpeed);
             }
         } else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
             for (Segments i : snakeSegments) {
                 i.setSpeedX(0);
-                i.setSpeedY(1);
+                i.setSpeedY(snakeSpeed);
             }
+        }
+
+        if (keyCode == KeyEvent.VK_SPACE) {
+            snakeSpeed += 0.5;
         }
     }
 
