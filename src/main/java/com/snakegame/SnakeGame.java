@@ -44,7 +44,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         apple = new Food();
 
         // GameLoop
-        gameLoop = new Timer(10, this);
+        gameLoop = new Timer(100, this);
         gameLoop.start();
         addKeyListener(this);
 
@@ -98,8 +98,13 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     public void checkFoodColisions() {
         Segments head = snakeSegments.get(0);
 
-        if (head.getSnakeX() / gridSize == apple.getFoodX() / gridSize
-                && head.getSnakeY() / gridSize == apple.getFoodY() / gridSize) {
+        if ((head.getSnakeX() / gridSize < (apple.getFoodX() / gridSize) + 0.4 &&
+                head.getSnakeX() / gridSize > (apple.getFoodX() / gridSize) - 0.4)
+                &&
+                (head.getSnakeY() / gridSize < (apple.getFoodY() / gridSize) + 0.4 &&
+                        head.getSnakeY() / gridSize > (apple.getFoodY() / gridSize) - 0.4))
+
+        {
             snakeSegments.add(new Segments(apple.getFoodX() / gridSize, apple.getFoodY() / gridSize));
             apple.foodEaten();
             score++;
