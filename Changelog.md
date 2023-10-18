@@ -2,6 +2,8 @@
 
 1. [X] boundaries from grid >> actual screen size
 2. [ ] first food eaten didn't add snake length
+    1. [ ] i found because the first food overlapped the head
+3. [ ] when at certain speed and score, maploop doesnt work
 
 // Things that really weird and should be changed
 
