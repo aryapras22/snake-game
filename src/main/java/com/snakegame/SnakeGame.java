@@ -17,10 +17,11 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     private static int scaleSizeX;
     private static int scaleSizeY;
     private int score = 0;
-    private double snakeSpeed = 0.5;
+    private double snakeSpeed = 1;
     private Timer gameLoop;
     private Food apple;
     private static ArrayList<Segments> snakeSegments;
+    private boolean gameOver = false;
 
     public SnakeGame(int panelWidth, int panelHeight) {
         SnakeGame.panelWidth = panelWidth;
@@ -109,7 +110,16 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             apple.foodEaten();
             score++;
         }
+    }
 
+    public void partCollision() {
+        Segments head = snakeSegments.get(0);
+        for (int i = 2; i < snakeSegments.size(); i++) {
+            Segments part = snakeSegments.get(i);
+            if (head.getSnakeX() == part.getSnakeX() && head.getSnakeY() == part.getSnakeY()) {
+                gameOver = true;
+            }
+        }
     }
 
     public void mapLoop() {
@@ -166,6 +176,11 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         }
         checkFoodColisions();
         mapLoop();
+        partCollision();
+        if (gameOver) {
+            // gameLoop.stop();
+            System.out.println("Collision detected");
+        }
     }
 
     @Override

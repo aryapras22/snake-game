@@ -4,6 +4,7 @@
 2. [ ] first food eaten didn't add snake length
     1. [ ] i found because the first food overlapped the head
 3. [ ] when at certain speed and score, maploop doesnt work
+4. [ ] another bug in map loop is when i travel too often so not all segment teleported
 
 // Things that really weird and should be changed
 
@@ -14,6 +15,7 @@
 
 * [ ] created overloading constructor for adding previous tail to new tail instances
 * [ ] figure out how timer works
+* [ ] to making it simple i gonna focus on changing map loop to gameover
 
 // Future Features
 
