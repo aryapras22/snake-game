@@ -114,7 +114,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
     public void partCollision() {
         Segments head = snakeSegments.get(0);
-        for (int i = 2; i < snakeSegments.size(); i++) {
+        for (int i = snakeSegments.size() - 1; i > 1; i--) {
             Segments part = snakeSegments.get(i);
             if (head.getSnakeX() == part.getSnakeX() && head.getSnakeY() == part.getSnakeY()) {
                 gameOver = true;
