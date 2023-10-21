@@ -9,13 +9,13 @@
 // Things that really weird and should be changed
 
 * [ ] grid control everything. should be making it more simpler and stop redudancy
-* [ ] speed instance
+* [X] speed instance
 
 // Alternate method
 
 * [ ] created overloading constructor for adding previous tail to new tail instances
-* [ ] figure out how timer works
-* [ ] to making it simple i gonna focus on changing map loop to gameover
+* [X] figure out how timer works
+* [X] to making it simple i gonna focus on changing map loop to gameover
 
 // Future Features
 
@@ -28,6 +28,6 @@
     * [ ] segment start making distance
     * [ ] food place are not correct
     * [ ] loop map didnt work
-* [ ] game over condition
-* [ ] restart button
+* [X] game over condition
+* [X] restart button
 * [ ]

@@ -16,7 +16,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     private static int gridSize = 20;
     private static int scaleSizeX;
     private static int scaleSizeY;
-    private int score = 0;
+    private int score, highScore;
     private double snakeSpeed = 1;
     private Timer gameLoop;
     private Food apple;
@@ -35,6 +35,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         frame.add(this);
         setBackground(Color.BLACK);
         setFocusable(true);
+        addKeyListener(this);
 
         // Snake Parts
         snakeSegments = new ArrayList<Segments>();
@@ -45,14 +46,24 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         apple = new Food();
 
         // GameLoop
+        score = 0;
+        highScore = 0;
         gameLoop = new Timer(100, this);
         gameLoop.start();
-        addKeyListener(this);
 
     }
 
-    public void function() {
-
+    public void restart() {
+        if (score > highScore) {
+            highScore = score;
+        }
+        score = 0;
+        snakeSegments.clear();
+        Segments snakeHead = new Segments(1, 1);
+        snakeSegments.add(snakeHead);
+        apple = new Food();
+        gameLoop = new Timer(100, this);
+        gameLoop.start();
     }
 
     @Override
@@ -63,15 +74,15 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
     public void draw(Graphics g) {
         // Grid
-        // Veritcal Lines
-        for (int i = 0; i <= (panelWidth / gridSize) - 2; i++) {
-            g.drawLine(i * gridSize, 0, i * gridSize, panelHeight - (2 * gridSize));
-        }
+        // // Veritcal Lines
+        // for (int i = 0; i <= (panelWidth / gridSize) - 2; i++) {
+        // g.drawLine(i * gridSize, 0, i * gridSize, panelHeight - (2 * gridSize));
+        // }
 
-        // Horizontal Lines
-        for (int i = 0; i <= (panelHeight / gridSize) - 2; i++) {
-            g.drawLine(0, i * gridSize, panelWidth - (gridSize * 1), i * gridSize);
-        }
+        // // Horizontal Lines
+        // for (int i = 0; i <= (panelHeight / gridSize) - 2; i++) {
+        // g.drawLine(0, i * gridSize, panelWidth - (gridSize * 1), i * gridSize);
+        // }
 
         // Food
         g.setColor(Color.RED);
@@ -79,11 +90,11 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
         // Snake Head
         Segments head = snakeSegments.get(0);
-        g.setColor(Color.BLUE);
+        g.setColor(Color.YELLOW);
         g.fillRect(head.getSnakeX(), head.getSnakeY(), head.getSnakeWidth(), head.getSnakeHeight());
 
         // Snake Tail
-        for (int i = 2; i < snakeSegments.size(); i++) {
+        for (int i = 0; i < snakeSegments.size(); i++) {
             Segments tail = snakeSegments.get(i);
             g.setColor(Color.YELLOW);
             g.fillRect(tail.getSnakeX(), tail.getSnakeY(), tail.getSnakeWidth(), tail.getSnakeHeight());
@@ -93,6 +104,21 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
         g.setColor(Color.GREEN);
         g.drawString("Score = " + score, 50, 20);
+
+        // Gameover
+        if (gameOver) {
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 50));
+            g.setColor(Color.RED);
+            g.drawString("GAMEOVER", (panelWidth / 4) + 50, panelHeight / 2);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.setColor(Color.GREEN);
+            g.drawString("press space to restart!", (panelWidth / 4) + 100, (panelHeight / 2) + 30);
+            g.setFont(new Font("TimesRoman", Font.PLAIN, 20));
+            g.setColor(Color.GREEN);
+            g.drawString("highScore = " + highScore, 150, 20);
+            gameLoop.stop();
+        }
+
     }
 
     // Collisions
@@ -112,14 +138,8 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
         }
     }
 
-    public void partCollision() {
-        Segments head = snakeSegments.get(0);
-        for (int i = snakeSegments.size() - 1; i > 1; i--) {
-            Segments part = snakeSegments.get(i);
-            if (head.getSnakeX() == part.getSnakeX() && head.getSnakeY() == part.getSnakeY()) {
-                gameOver = true;
-            }
-        }
+    public boolean collision(Segments head, Segments part) {
+        return head.getSnakeX() == part.getSnakeX() && head.getSnakeY() == part.getSnakeY();
     }
 
     public void mapLoop() {
@@ -175,11 +195,18 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             }
         }
         checkFoodColisions();
-        mapLoop();
-        partCollision();
-        if (gameOver) {
-            // gameLoop.stop();
-            System.out.println("Collision detected");
+        // mapLoop();
+
+        if (head.getSnakeX() == 0 || head.getSnakeX() == panelWidth ||
+                head.getSnakeY() == 0 || head.getSnakeY() == panelHeight) {
+            gameOver = true;
+        }
+
+        for (int i = 0; i < snakeSegments.size(); i++) {
+            Segments part = snakeSegments.get(i);
+            if (collision(head, part)) {
+                // System.out.println("collision detected");
+            }
         }
     }
 
@@ -187,7 +214,7 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
     public void keyPressed(KeyEvent e) {
         int keyCode = e.getKeyCode();
 
-        if (keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT) {
+        if ((keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT)) {
             for (Segments i : snakeSegments) {
                 i.setSpeedX(-snakeSpeed);
                 i.setSpeedY(0);
@@ -211,8 +238,10 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             }
         }
 
-        if (keyCode == KeyEvent.VK_SPACE) {
-            snakeSpeed += 0.5;
+        if (keyCode == KeyEvent.VK_SPACE && gameOver) {
+            // snakeSpeed += 0.5;
+            gameOver = false;
+            restart();
         }
     }
 
