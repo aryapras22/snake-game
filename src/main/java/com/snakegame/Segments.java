@@ -9,6 +9,14 @@ public class Segments {
     private double speedX = 1;
     private double speedY = 0;
 
+    public double getSpeedX() {
+        return speedX;
+    }
+
+    public double getSpeedY() {
+        return speedY;
+    }
+
     public void setSnakeX(int snakeX) {
         this.snakeX = snakeX;
     }

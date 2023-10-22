@@ -216,25 +216,33 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
 
         if ((keyCode == KeyEvent.VK_A || keyCode == KeyEvent.VK_LEFT)) {
             for (Segments i : snakeSegments) {
-                i.setSpeedX(-snakeSpeed);
-                i.setSpeedY(0);
+                if (i.getSpeedX() == 0) {
+                    i.setSpeedX(-snakeSpeed);
+                    i.setSpeedY(0);
+                }
             }
         } else if (keyCode == KeyEvent.VK_D || keyCode == KeyEvent.VK_RIGHT) {
             for (Segments i : snakeSegments) {
-                i.setSpeedX(snakeSpeed);
-                i.setSpeedY(0);
+                if (i.getSpeedX() == 0) {
+                    i.setSpeedX(snakeSpeed);
+                    i.setSpeedY(0);
+                }
             }
         }
 
         if (keyCode == KeyEvent.VK_W || keyCode == KeyEvent.VK_UP) {
             for (Segments i : snakeSegments) {
-                i.setSpeedX(0);
-                i.setSpeedY(-snakeSpeed);
+                if (i.getSpeedY() == 0) {
+                    i.setSpeedX(0);
+                    i.setSpeedY(-snakeSpeed);
+                }
             }
         } else if (keyCode == KeyEvent.VK_S || keyCode == KeyEvent.VK_DOWN) {
             for (Segments i : snakeSegments) {
-                i.setSpeedX(0);
-                i.setSpeedY(snakeSpeed);
+                if (i.getSpeedY() == 0) {
+                    i.setSpeedX(0);
+                    i.setSpeedY(snakeSpeed);
+                }
             }
         }
 
