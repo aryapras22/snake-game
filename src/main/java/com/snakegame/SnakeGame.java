@@ -132,8 +132,10 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
                         head.getSnakeY() / gridSize > (apple.getFoodY() / gridSize) - 0.4))
 
         {
-            snakeSegments.add(new Segments(apple.getFoodX() / gridSize, apple.getFoodY() / gridSize));
+
+            snakeSegments.add(new Segments((apple.getFoodX() / gridSize) + 1, (apple.getFoodY() / gridSize) + 1));
             apple.foodEaten();
+
             score++;
         }
     }
@@ -202,10 +204,10 @@ public class SnakeGame extends JPanel implements ActionListener, KeyListener {
             gameOver = true;
         }
 
-        for (int i = 0; i < snakeSegments.size(); i++) {
+        for (int i = 2; i < snakeSegments.size(); i++) {
             Segments part = snakeSegments.get(i);
             if (collision(head, part)) {
-                // System.out.println("collision detected");
+                System.out.println("collision detected");
             }
         }
     }
